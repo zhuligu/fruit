@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水果抽签器 - 明天吃什么？</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🍎</span>
+                <span class="brand-text">水果抽签器</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-tab="home">首页</a>
+                <a href="#" class="nav-link" data-tab="fruits">所有水果</a>
+                <a href="#" class="nav-link" data-tab="about">关于</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 关于弹窗 -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2>关于</h2>
+            </div>
+            <div class="modal-body">
+                <p>由 OpenClaw 创建</p>
+                <p>Python Flask 单网页应用程序</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 标题区 -->
+            <section class="hero">
+                <h1 class="hero-title">明天吃什么水果？</h1>
+                <p class="hero-subtitle">让命运为你选择，发现美味与健康</p>
+            </section>
+
+            <!-- 抽签卡片 -->
+            <section class="draw-section">
+                <div class="draw-card" id="drawCard">
+                    <div class="draw-icon">🎯</div>
+                    <div class="draw-emoji" id="fruitEmoji">🍎</div>
+                    <h2 class="draw-title" id="fruitName">苹果</h2>
+                    <p class="draw-subtitle" id="fruitSubtitle">清新脆甜，健康之选</p>
+
+                    <!-- 抽签按钮 -->
+                    <button class="draw-btn" id="drawBtn">
+                        <span class="btn-icon">✨</span>
+                        <span class="btn-text">开始抽签</span>
+                    </button>
+
+                    <!-- 营养信息（抽签后显示） -->
+                    <div class="nutrition-panel" id="nutritionPanel" style="display: none;">
+                        <div class="nutrition-header">
+                            <h3>营养成分</h3>
+                            <span class="per-100g">每100克</span>
+                        </div>
+
+                        <div class="nutrition-grid">
+                            <div class="nutrition-item">
+                                <span class="nutrition-label">热量</span>
+                                <span class="nutrition-value" id="calories">52</span>
+                                <span class="nutrition-unit">kcal</span>
+                            </div>
+                            <div class="nutrition-item">
+                                <span class="nutrition-label">维生素C</span>
+                                <span class="nutrition-value" id="vitaminC">4.6</span>
+                                <span class="nutrition-unit">mg</span>
+                            </div>
+                            <div class="nutrition-item">
+                                <span class="nutrition-label">纤维</span>
+                                <span class="nutrition-value" id="fiber">2.4</span>
+                                <span class="nutrition-unit">g</span>
+                            </div>
+                            <div class="nutrition-item">
+                                <span class="nutrition-label">糖分</span>
+                                <span class="nutrition-value" id="sugar">10.4</span>
+                                <span class="nutrition-unit">g</span>
+                            </div>
+                        </div>
+
+                        <div class="nutrition-tags" id="nutritionTags">
+                            <!-- 标签将动态生成 -->
+                        </div>
+
+                        <div class="eating-guide">
+                            <div class="guide-item">
+                                <div class="guide-icon">⏰</div>
+                                <div class="guide-content">
+                                    <h4>最佳食用时间</h4>
+                                    <p id="bestTime">上午10点或下午3点</p>
+                                </div>
+                            </div>
+                            <div class="guide-item">
+                                <div class="guide-icon">📏</div>
+                                <div class="guide-content">
+                                    <h4>建议食用量</h4>
+                                    <p id="amount">1-2个（中等大小）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 所有水果展示（默认隐藏） -->
+            <section class="fruits-section" id="fruitsSection" style="display: none;">
+                <h3 class="section-title">20种美味水果</h3>
+                <div class="fruits-grid">
+                    {% for fruit_name, data in fruits.items() %}
+                    <div class="fruit-card" data-fruit="{{ fruit_name }}" style="border-color: {{ data.color }}">
+                        <div class="fruit-emoji">🍎</div>
+                        <h4 class="fruit-name">{{ fruit_name }}</h4>
+                        <p class="fruit-calories">{{ data.calories }} kcal</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>💡 健康小贴士：每天摄入2-3份水果，均衡营养更健康</p>
+    </footer>
+
+    <!-- 音频元素 -->
+    <audio id="drawMusic" preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 水果emoji映射
+        const fruitEmojis = {
+            '苹果': '🍎',
+            '香蕉': '🍌',
+            '橙子': '🍊',
+            '葡萄': '🍇',
+            '草莓': '🍓',
+            '蓝莓': '🫐',
+            '猕猴桃': '🥝',
+            '芒果': '🥭',
+            '梨': '🍐',
+            '桃子': '🍑',
+            '樱桃': '🍒',
+            '西瓜': '🍉',
+            '哈密瓜': '🍈',
+            '菠萝': '🍍',
+            '柠檬': '🍋',
+            '石榴': '🥝',
+            '山竹': '🫐',
+            '火龙果': '🐉',
+            '椰子': '🥥',
+            '荔枝': '🔴'
+        };
+
+        const fruitSubtitles = {
+            '苹果': '清新脆甜，健康之选',
+            '香蕉': '能量满满，运动好伴侣',
+            '橙子': '维生素C，活力源泉',
+            '葡萄': '酸甜可口，美容养颜',
+            '草莓': '香甜诱人，抗氧化之王',
+            '蓝莓': '超级水果，护眼佳品',
+            '猕猴桃': '营养密集，维C之王',
+            '芒果': '热带风情，甜蜜享受',
+            '梨': '清润爽口，润肺止咳',
+            '桃子': '粉嫩多汁，美容养颜',
+            '樱桃': '小巧玲珑，营养丰富',
+            '西瓜': '夏日必备，清爽解暑',
+            '哈密瓜': '甘甜多汁，新疆之宝',
+            '菠萝': '酸甜开胃，助消化',
+            '柠檬': '清新酸爽，调味佳品',
+            '石榴': '红宝石般，抗氧化强',
+            '山竹': '果后之称，清热降火',
+            '火龙果': '颜值担当，清甜可口',
+            '椰子': '热带风情，能量满满',
+            '荔枝': '岭南佳果，鲜甜多汁'
+        };
+
+        // 导航栏功能
+        const navLinks = document.querySelectorAll('.nav-link');
+        const fruitsSection = document.getElementById('fruitsSection');
+        const aboutModal = document.getElementById('aboutModal');
+        const modalClose = document.querySelector('.modal-close');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // 移除所有active状态
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                const tab = link.dataset.tab;
+
+                if (tab === 'fruits') {
+                    // 显示水果列表
+                    fruitsSection.style.display = 'block';
+                    aboutModal.style.display = 'none';
+                    // 滚动到水果区域（考虑导航栏高度）
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const elementPosition = fruitsSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                } else if (tab === 'about') {
+                    // 显示关于弹窗
+                    aboutModal.style.display = 'flex';
+                    fruitsSection.style.display = 'none';
+                } else {
+                    // 回到首页
+                    fruitsSection.style.display = 'none';
+                    aboutModal.style.display = 'none';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // 关闭弹窗
+        modalClose.addEventListener('click', () => {
+            aboutModal.style.display = 'none';
+            // 回到首页
+            navLinks.forEach(l => l.classList.remove('active'));
+            navLinks[0].classList.add('active');
+        });
+
+        // 点击弹窗外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                aboutModal.style.display = 'none';
+                navLinks.forEach(l => l.classList.remove('active'));
+                navLinks[0].classList.add('active');
+            }
+        });
+
+        // 抽签功能
+        const drawBtn = document.getElementById('drawBtn');
+        const drawCard = document.getElementById('drawCard');
+        const nutritionPanel = document.getElementById('nutritionPanel');
+        const drawMusic = document.getElementById('drawMusic');
+
+        drawBtn.addEventListener('click', async () => {
+            // 播放音乐
+            try {
+                drawMusic.currentTime = 0;
+                drawMusic.volume = 0.3; // 设置音量为30%
+                await drawMusic.play();
+            } catch (error) {
+                console.log('音乐播放失败:', error);
+            }
+
+            // 添加动画效果
+            drawBtn.disabled = true;
+            drawBtn.classList.add('animating');
+
+            // 抽签动画
+            let count = 0;
+            const maxCount = 20;
+            const interval = setInterval(() => {
+                const randomFruit = Object.keys(fruitEmojis)[Math.floor(Math.random() * Object.keys(fruitEmojis).length)];
+                document.getElementById('fruitEmoji').textContent = fruitEmojis[randomFruit];
+                document.getElementById('fruitName').textContent = randomFruit;
+                document.getElementById('fruitSubtitle').textContent = fruitSubtitles[randomFruit];
+                count++;
+
+                if (count >= maxCount) {
+                    clearInterval(interval);
+                    fetchFruit();
+                }
+            }, 100);
+        });
+
+        async function fetchFruit() {
+            // 停止音乐
+            drawMusic.pause();
+            drawMusic.currentTime = 0;
+
+            try {
+                const response = await fetch('/draw');
+                const result = await response.json();
+
+                // 更新UI
+                document.getElementById('fruitEmoji').textContent = fruitEmojis[result.name] || '🍎';
+                document.getElementById('fruitName').textContent = result.name;
+                document.getElementById('fruitSubtitle').textContent = fruitSubtitles[result.name];
+
+                // 更新营养信息
+                document.getElementById('calories').textContent = result.data.calories;
+                document.getElementById('vitaminC').textContent = result.data.vitamin_c;
+                document.getElementById('fiber').textContent = result.data.fiber;
+                document.getElementById('sugar').textContent = result.data.sugar;
+                document.getElementById('bestTime').textContent = result.data.best_time;
+                document.getElementById('amount').textContent = result.data.amount;
+
+                // 更新营养标签
+                const tagsContainer = document.getElementById('nutritionTags');
+                tagsContainer.innerHTML = '';
+                result.data.nutrition.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'nutrition-tag';
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+
+                // 显示营养面板
+                nutritionPanel.style.display = 'block';
+                drawCard.classList.add('has-result');
+
+                // 更新按钮状态
+                drawBtn.disabled = false;
+                drawBtn.classList.remove('animating');
+                drawBtn.querySelector('.btn-text').textContent = '再抽一次';
+
+            } catch (error) {
+                console.error('抽签失败:', error);
+                drawBtn.disabled = false;
+                drawBtn.classList.remove('animating');
+                drawMusic.pause();
+                drawMusic.currentTime = 0;
+            }
+        }
+
+        // 更新水果卡片emoji
+        document.querySelectorAll('.fruit-card').forEach(card => {
+            const fruitName = card.dataset.fruit;
+            const emojiSpan = card.querySelector('.fruit-emoji');
+            emojiSpan.textContent = fruitEmojis[fruitName] || '🍎';
+        });
+    </script>
+</body>
+</html>
