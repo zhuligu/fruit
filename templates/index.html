@@ -24,14 +24,36 @@
 
     <!-- 关于弹窗 -->
     <div class="modal" id="aboutModal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-header">
-                <h2>关于</h2>
-            </div>
-            <div class="modal-body">
-                <p>由 OpenClaw 创建</p>
-                <p>Python Flask 单网页应用程序</p>
+        <div class="modal-content about-modal">
+            <div class="modal-body about-body">
+                <!-- 图标 -->
+                <div class="about-icon">ℹ️</div>
+                <!-- 标题 -->
+                <h2 class="about-title">关于本应用</h2>
+                <!-- 核心信息 -->
+                <div class="about-info">
+                    <div class="info-item">
+                        <span class="info-label">👨‍💻 作者</span>
+                        <span class="info-value">OpenClaw</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🛠️ 技术栈</span>
+                        <span class="info-value">Python Flask</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🎯 类型</span>
+                        <span class="info-value">单网页应用</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">🍎 功能</span>
+                        <span class="info-value">水果抽签器</span>
+                    </div>
+                </div>
+                <!-- 知道了按钮 -->
+                <button class="about-got-it-btn" id="aboutGotItBtn">
+                    <span class="btn-icon">✓</span>
+                    <span class="btn-text">知道了</span>
+                </button>
             </div>
         </div>
     </div>
@@ -191,7 +213,6 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const fruitsSection = document.getElementById('fruitsSection');
         const aboutModal = document.getElementById('aboutModal');
-        const modalClose = document.querySelector('.modal-close');
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -229,13 +250,15 @@
             });
         });
 
-        // 关闭弹窗
-        modalClose.addEventListener('click', () => {
+        // 知道了按钮
+        document.getElementById('aboutGotItBtn').addEventListener('click', closeAboutModal);
+
+        function closeAboutModal() {
             aboutModal.style.display = 'none';
             // 回到首页
             navLinks.forEach(l => l.classList.remove('active'));
             navLinks[0].classList.add('active');
-        });
+        }
 
         // 点击弹窗外部关闭
         window.addEventListener('click', (e) => {

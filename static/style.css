@@ -107,12 +107,9 @@ body {
 }
 
 .hero-title {
-    font-size: 3rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
 
@@ -481,7 +478,8 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.3s ease-in-out;
@@ -498,79 +496,200 @@ body {
 
 .modal-content {
     background: white;
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     width: 90%;
-    max-width: 500px;
+    max-width: 450px;
     box-shadow: var(--shadow-xl);
-    animation: slideIn 0.3s ease-in-out;
-    overflow: hidden;
+    animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: visible;
     position: relative;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
         opacity: 0;
     }
-    to {
-        transform: translateY(0);
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
         opacity: 1;
     }
 }
 
-.modal-header {
-    background: var(--gradient-primary);
-    padding: 2rem 1.5rem 1.5rem;
-    text-align: center;
-}
-
-.modal-header h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
+/* 关于弹窗特别样式 */
+.about-modal {
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1;
 }
 
 .modal-close {
     position: absolute;
-    top: 0.8rem;
-    right: 1rem;
-    font-size: 1.8rem;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
     line-height: 1;
     z-index: 10;
+    box-shadow: var(--shadow-lg);
 }
 
 .modal-close:hover {
-    transform: scale(1.1);
-    color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
 }
 
-.modal-body {
-    padding: 2rem;
+/* 关于弹窗主体 */
+.about-body {
+    padding: 2.5rem 2rem 2rem;
     text-align: center;
 }
 
-.modal-body p {
-    font-size: 1.2rem;
-    color: var(--text-primary);
+.about-icon {
+    font-size: 4rem;
     margin-bottom: 1rem;
-    font-weight: 500;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.about-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 1.5rem;
+}
+
+/* 信息列表 */
+.about-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 1rem;
+    border-left: 4px solid;
+    border-image: linear-gradient(180deg, #667eea 0%, #764ba2 100%) 1;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.info-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* 知道了按钮 */
+.about-got-it-btn {
+    width: 100%;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-lg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.about-got-it-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+}
+
+.about-got-it-btn:active {
+    transform: translateY(-1px);
+}
+
+.about-got-it-btn .btn-icon {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
     .modal-content {
-        width: 95%;
-        margin: 1rem;
+        width: 92%;
+        max-width: 380px;
     }
 
-    .modal-header h2 {
+    .about-body {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .about-icon {
+        font-size: 3rem;
+    }
+
+    .about-title {
         font-size: 1.5rem;
     }
 
-    .modal-body p {
+    .info-item {
+        padding: 0.6rem 1rem;
+    }
+
+    .info-label {
+        font-size: 0.9rem;
+    }
+
+    .info-value {
         font-size: 1rem;
+    }
+
+    .modal-close {
+        top: -12px;
+        right: -12px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
     }
 }
