@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 山竹 Mangosteen -->
+  <!-- Body -->
+  <circle cx="50" cy="55" r="35" fill="#4A2060"/>
+  <ellipse cx="50" cy="55" rx="35" ry="33" fill="#5B2D75" opacity="0.6"/>
+  <!-- Highlight -->
+  <ellipse cx="40" cy="48" rx="12" ry="8" fill="#7B4D8A" opacity="0.4"/>
+  <!-- Green calyx (top) -->
+  <ellipse cx="50" cy="22" rx="18" ry="8" fill="#2E8B57"/>
+  <ellipse cx="42" cy="20" rx="8" ry="12" fill="#3CB371" transform="rotate(-15 42 20)"/>
+  <ellipse cx="58" cy="20" rx="8" ry="12" fill="#3CB371" transform="rotate(15 58 20)"/>
+  <ellipse cx="50" cy="18" rx="6" ry="10" fill="#2E8B57"/>
+  <ellipse cx="35" cy="22" rx="6" ry="10" fill="#3CB371" transform="rotate(-30 35 22)"/>
+  <ellipse cx="65" cy="22" rx="6" ry="10" fill="#3CB371" transform="rotate(30 65 22)"/>
+  <!-- Stem -->
+  <rect x="48" y="10" width="4" height="10" rx="2" fill="#228B22"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 石榴 Pomegranate -->
+  <!-- Body -->
+  <circle cx="50" cy="55" r="36" fill="#B22222"/>
+  <!-- Slight ridge lines -->
+  <path d="M50 20 Q52 55 50 90" stroke="#991111" stroke-width="1.5" fill="none" opacity="0.3"/>
+  <path d="M30 25 Q35 55 30 85" stroke="#991111" stroke-width="1" fill="none" opacity="0.2"/>
+  <path d="M70 25 Q65 55 70 85" stroke="#991111" stroke-width="1" fill="none" opacity="0.2"/>
+  <!-- Highlight -->
+  <ellipse cx="40" cy="48" rx="12" ry="9" fill="#D44" opacity="0.4"/>
+  <!-- Crown (calyx) - the distinctive pomegranate top -->
+  <polygon points="50,10 44,22 50,18 56,22" fill="#8B0000"/>
+  <polygon points="42,12 38,24 44,20" fill="#A00"/>
+  <polygon points="58,12 62,24 56,20" fill="#A00"/>
+  <polygon points="34,16 33,26 38,23" fill="#8B0000" opacity="0.8"/>
+  <polygon points="66,16 67,26 62,23" fill="#8B0000" opacity="0.8"/>
+  <!-- Crown center piece -->
+  <polygon points="50,8 48,18 50,16 52,18" fill="#B22222"/>
+</svg>

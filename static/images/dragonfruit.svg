@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 火龙果 Dragon Fruit -->
+  <!-- Main body -->
+  <ellipse cx="50" cy="55" rx="30" ry="35" fill="#FF1493"/>
+  <!-- Scale-like protrusions -->
+  <ellipse cx="25" cy="45" rx="10" ry="18" fill="#FF69B4" transform="rotate(-25 25 45)"/>
+  <ellipse cx="75" cy="45" rx="10" ry="18" fill="#FF69B4" transform="rotate(25 75 45)"/>
+  <ellipse cx="35" cy="30" rx="8" ry="14" fill="#FF69B4" transform="rotate(-10 35 30)"/>
+  <ellipse cx="65" cy="30" rx="8" ry="14" fill="#FF69B4" transform="rotate(10 65 30)"/>
+  <ellipse cx="50" cy="25" rx="7" ry="12" fill="#FF69B4"/>
+  <ellipse cx="20" cy="60" rx="8" ry="14" fill="#FF69B4" transform="rotate(-35 20 60)"/>
+  <ellipse cx="80" cy="60" rx="8" ry="14" fill="#FF69B4" transform="rotate(35 80 60)"/>
+  <!-- Inner white flesh hint at bottom -->
+  <ellipse cx="50" cy="70" rx="18" ry="15" fill="#FFF5EE" opacity="0.3"/>
+  <!-- Seeds on flesh -->
+  <circle cx="44" cy="68" r="1.2" fill="#333"/>
+  <circle cx="50" cy="72" r="1.2" fill="#333"/>
+  <circle cx="56" cy="67" r="1.2" fill="#333"/>
+  <circle cx="47" cy="75" r="1.2" fill="#333"/>
+  <circle cx="53" cy="75" r="1.2" fill="#333"/>
+  <circle cx="41" cy="73" r="1.2" fill="#333"/>
+  <circle cx="59" cy="72" r="1.2" fill="#333"/>
+  <!-- Green tips on scales -->
+  <circle cx="25" cy="30" r="3" fill="#2E8B57"/>
+  <circle cx="75" cy="30" r="3" fill="#2E8B57"/>
+  <circle cx="50" cy="15" r="3" fill="#2E8B57"/>
+  <circle cx="38" cy="18" r="2.5" fill="#3CB371"/>
+  <circle cx="62" cy="18" r="2.5" fill="#3CB371"/>
+</svg>

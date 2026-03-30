@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 荔枝 Lychee -->
+  <!-- Body with bumpy texture -->
+  <circle cx="50" cy="52" r="35" fill="#CC3333"/>
+  <!-- Bumps -->
+  <circle cx="35" cy="40" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="55" cy="38" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="65" cy="50" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="60" cy="65" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="40" cy="65" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="30" cy="55" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="45" cy="50" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="55" cy="55" r="5" fill="#B02020" opacity="0.5"/>
+  <circle cx="50" cy="45" r="4" fill="#B02020" opacity="0.5"/>
+  <circle cx="40" cy="55" r="4" fill="#B02020" opacity="0.5"/>
+  <!-- Highlight -->
+  <ellipse cx="40" cy="42" rx="10" ry="8" fill="#E05050" opacity="0.5"/>
+  <!-- Green stem -->
+  <line x1="50" y1="17" x2="50" y2="28" stroke="#228B22" stroke-width="3" stroke-linecap="round"/>
+  <!-- Leaf -->
+  <ellipse cx="58" cy="20" rx="10" ry="5" fill="#2E8B57" transform="rotate(-20 58 20)"/>
+  <!-- Small leaf -->
+  <ellipse cx="43" cy="22" rx="7" ry="4" fill="#3CB371" transform="rotate(15 43 22)"/>
+</svg>

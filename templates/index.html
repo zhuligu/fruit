@@ -186,6 +186,23 @@
             '荔枝': '🔴'
         };
 
+        // 使用图片的水果映射（这些水果没有合适的emoji）
+        const fruitImages = {
+            '石榴': '/static/images/pomegranate.svg',
+            '山竹': '/static/images/mangosteen.svg',
+            '火龙果': '/static/images/dragonfruit.svg',
+            '荔枝': '/static/images/lychee.svg'
+        };
+
+        // 设置水果显示（图片或emoji）
+        function setFruitDisplay(element, fruitName, size) {
+            if (fruitImages[fruitName]) {
+                element.innerHTML = '<img src="' + fruitImages[fruitName] + '" alt="' + fruitName + '" style="width:' + size + ';height:' + size + ';object-fit:contain;">';
+            } else {
+                element.textContent = fruitEmojis[fruitName] || '🍎';
+            }
+        }
+
         const fruitSubtitles = {
             '苹果': '清新脆甜，健康之选',
             '香蕉': '能量满满，运动好伴侣',
@@ -294,7 +311,7 @@
             const maxCount = 20;
             const interval = setInterval(() => {
                 const randomFruit = Object.keys(fruitEmojis)[Math.floor(Math.random() * Object.keys(fruitEmojis).length)];
-                document.getElementById('fruitEmoji').textContent = fruitEmojis[randomFruit];
+                setFruitDisplay(document.getElementById('fruitEmoji'), randomFruit, '5rem');
                 document.getElementById('fruitName').textContent = randomFruit;
                 document.getElementById('fruitSubtitle').textContent = fruitSubtitles[randomFruit];
                 count++;
@@ -316,7 +333,7 @@
                 const result = await response.json();
 
                 // 更新UI
-                document.getElementById('fruitEmoji').textContent = fruitEmojis[result.name] || '🍎';
+                setFruitDisplay(document.getElementById('fruitEmoji'), result.name, '5rem');
                 document.getElementById('fruitName').textContent = result.name;
                 document.getElementById('fruitSubtitle').textContent = fruitSubtitles[result.name];
 
@@ -360,7 +377,7 @@
         document.querySelectorAll('.fruit-card').forEach(card => {
             const fruitName = card.dataset.fruit;
             const emojiSpan = card.querySelector('.fruit-emoji');
-            emojiSpan.textContent = fruitEmojis[fruitName] || '🍎';
+            setFruitDisplay(emojiSpan, fruitName, '3rem');
         });
     </script>
 </body>
