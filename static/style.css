@@ -525,8 +525,7 @@ body {
 /* 关于弹窗特别样式 */
 .about-modal {
     background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
-    border: 2px solid;
-    border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1;
+    border: none;
 }
 
 .modal-close {
